@@ -17,9 +17,9 @@ module.exports = {
         password:process.env.NODE_MAILER_PASSWORD,
         app_password:process.env.APP_PASSWORD 
     },
-    // oauth:{
-    //     client_id:process.env.CLIENT_ID,
-    //     client_secret:process.env.CLIENT_SECRET,
+     oauth:{
+         client_id:process.env.CLIENT_ID,
+         client_secret:process.env.CLIENT_SECRET,
     //     client_redirect:process.env.REDIRECT_URI,
     //     client_refresh_token:process.env.REFRESH_TOKEN
     // }
