@@ -22,5 +22,5 @@ module.exports = {
          client_secret:process.env.CLIENT_SECRET,
     //     client_redirect:process.env.REDIRECT_URI,
     //     client_refresh_token:process.env.REFRESH_TOKEN
-    // }
+    }
 }
