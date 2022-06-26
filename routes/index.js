@@ -1,40 +1,44 @@
-const express = require('express'); 
-const router = express.Router(); 
+const express = require('express');
+const router = express.Router();
 
 // importing routers 
-const Auth = require('./auth/index');  
-const Products = require('./Product/index'); 
-const Blogs = require('./Blogs/index'); 
-const Subscribers = require('./Subscribers/index'); 
-const Emails = require('./Emails/index'); 
-const WishList = require('./WishList/index'); 
-const Sell = require('./Sell/index'); 
+const Auth = require('./auth/index');
+const Products = require('./Product/index');
+const Blogs = require('./Blogs/index');
+const Subscribers = require('./Subscribers/index');
+const Emails = require('./Emails/index');
+const WishList = require('./WishList/index');
+const Sell = require('./Sell/index');
+const Orders = require('./Orders/Orders')
 
 //authentication routes 
-router.use('/auth',Auth); 
+router.use('/auth', Auth);
 
 //product routes 
-router.use('/products',Products);
+router.use('/products', Products);
 
 // blog product routers 
-router.use('/blogs',Blogs)
+router.use('/blogs', Blogs)
 
 // subscriber routes 
-router.use('/subscribers',Subscribers); 
+router.use('/subscribers', Subscribers);
 
 // Email - Marketing Routes 
-router.use('/emails',Emails);  
+router.use('/emails', Emails);
 
 // wishlist routes 
-router.use('/wishlist',WishList)
+router.use('/wishlist', WishList)
 
 // sell route (customer selling )
-router.use('/sell',Sell); 
+router.use('/sell', Sell);
+
+// order routes 
+router.use('/orders', Orders);
 
 
 // base root 
-router.get('/',(req,res)=>{
+router.get('/', (req, res) => {
     res.send('Hello👋')
 })
 
-module.exports = router ; 
+module.exports = router; 
