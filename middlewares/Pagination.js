@@ -15,8 +15,12 @@ function Pagination(model) {
     let query = {};
 
     try {
-      let maxValue = parseInt(req.query.min);
-      let minValue = parseInt(req.query.max);
+      let maxValue = parseInt(req.query.max);
+      let minValue = parseInt(req.query.min);
+      if (!minValue || !maxValue) {
+        minValue = 1;
+        maxValue = 100000000000;
+      }
 
       let pagination = {
         results: {},
@@ -31,20 +35,31 @@ function Pagination(model) {
             { "category": { $regex: `${search}`, $options: 'i' } },
           ]
         }
-        // console.log(req.query.search); 
+        pagination.results = await model.find(query).skip(startIndex).limit(limit);
       }
-      if (req.query.category) {
-        query = { category: { "$in": [req.query.category] } }
-      }
-
-      pagination.results = await model.find(query).skip(startIndex).limit(limit);
-
       let length = await model.countDocuments() // length 
+      // search by category for blogs 
+      if (req.query.category) {
+        length = await model.find(query).countDocuments();
+        query = { category: { "$in": [req.query.category] } }
+        pagination.results = await model.find(query).skip(startIndex).limit(limit);
+      }
+
+      // price filters 
+      console.log(minValue, maxValue);
+      if (minValue && maxValue) {
+        console.log('Hello')
+        query = {
+          price: { $gte: minValue, $lte: maxValue },
+        };
+        length = await model.find(query).countDocuments();
+        // length = length.length;
+        pagination.results = await model.find(query).skip(startIndex).limit(limit);
+      }
+      // length = pagination.results.length;
 
       pagination.length = length; // total num of items in the 
-      if (req.query.category) {
-        length = model.find(query).skip(startIndex).limit(limit).length
-      }
+
 
       // console.log(endIndex,length)
       pagination.current = page;
